@@ -1,10 +1,21 @@
 package com.projetofinal.sistemabibliotecario.domain;
 
+import com.fasterxml.jackson.annotation.JsonFormat;
+
+import javax.persistence.Entity;
+import javax.persistence.GeneratedValue;
+import javax.persistence.GenerationType;
+import javax.persistence.Id;
+import java.io.Serializable;
 import java.time.LocalDateTime;
 import java.util.Objects;
 
-public class Livro {
+@Entity
+public class Livro implements Serializable {
+    private static final long serialVersionUID = 1L;
 
+    @Id
+    @GeneratedValue(strategy = GenerationType.IDENTITY)
     private Long id;
     private String titulo;
     private String autor;
@@ -12,16 +23,16 @@ public class Livro {
     private String assunto;
     private Integer ano;
     private Integer qtd;
-    private LocalDateTime dataCadastro = LocalDateTime.now();
 
-    //ManyToOne
-    private Usuario usuario;
+    @JsonFormat(pattern = "dd/MM/yyyy")
+    private LocalDateTime dataCadastro = LocalDateTime.now();
 
     public Livro() {
         super();
     }
 
-    public Livro(Long id, String titulo, String autor, String editora, String assunto, Integer ano, Integer qtd, LocalDateTime dataCadastro, Usuario usuario) {
+    public Livro(Long id, String titulo, String autor, String editora, String assunto, Integer ano, Integer qtd, LocalDateTime dataCadastro
+    ) {
         this.id = id;
         this.titulo = titulo;
         this.autor = autor;
@@ -30,7 +41,6 @@ public class Livro {
         this.ano = ano;
         this.qtd = qtd;
         this.dataCadastro = dataCadastro;
-        this.usuario = usuario;
     }
 
     public Long getId() {
@@ -95,14 +105,6 @@ public class Livro {
 
     public void setDataCadastro(LocalDateTime dataCadastro) {
         this.dataCadastro = dataCadastro;
-    }
-
-    public Usuario getUsuario() {
-        return usuario;
-    }
-
-    public void setUsuario(Usuario usuario) {
-        this.usuario = usuario;
     }
 
     @Override

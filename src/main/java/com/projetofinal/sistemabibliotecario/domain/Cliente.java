@@ -1,11 +1,19 @@
 package com.projetofinal.sistemabibliotecario.domain;
 
+import javax.persistence.*;
+import java.io.Serializable;
 import java.util.Objects;
 
-public class Cliente {
+@Entity
+public class Cliente implements Serializable {
+    private static final long serialVersionUID = 1L;
 
+    @Id
+    @GeneratedValue(strategy = GenerationType.IDENTITY)
     private Integer id;
     private String nome;
+
+    @Column(unique = true)
     private String email;
     private String endereco;
     private String cidade;
