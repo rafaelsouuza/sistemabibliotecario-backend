@@ -1,6 +1,7 @@
 package com.projetofinal.sistemabibliotecario.resources;
 
 import com.projetofinal.sistemabibliotecario.domain.Cliente;
+import com.projetofinal.sistemabibliotecario.domain.dtos.ClienteDTO;
 import com.projetofinal.sistemabibliotecario.services.ClienteService;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.http.ResponseEntity;
@@ -17,8 +18,8 @@ public class ClienteResource {
     ClienteService clienteService;
 
     @GetMapping(value = "/{id}")
-    public ResponseEntity<Cliente> findById(@PathVariable Integer id) {
+    public ResponseEntity<ClienteDTO> findById(@PathVariable Integer id) {
         Cliente obj = clienteService.findById(id);
-        return ResponseEntity.ok().body(obj);
+        return ResponseEntity.ok().body(new ClienteDTO(obj));
     }
 }
