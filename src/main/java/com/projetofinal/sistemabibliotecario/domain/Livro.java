@@ -16,12 +16,14 @@ public class Livro implements Serializable {
 
     @Id
     @GeneratedValue(strategy = GenerationType.IDENTITY)
-    private Long id;
+    private Integer id;
     private String titulo;
     private String autor;
     private String editora;
     private String assunto;
-    private Integer ano;
+
+    @JsonFormat(pattern = "dd/MM/yyyy")
+    private LocalDateTime ano;
     private Integer qtd;
 
     @JsonFormat(pattern = "dd/MM/yyyy")
@@ -31,8 +33,8 @@ public class Livro implements Serializable {
         super();
     }
 
-    public Livro(Long id, String titulo, String autor, String editora, String assunto, Integer ano, Integer qtd, LocalDateTime dataCadastro
-    ) {
+    public Livro(Integer id, String titulo, String autor, String editora, String assunto, LocalDateTime ano,
+                 Integer qtd) {
         this.id = id;
         this.titulo = titulo;
         this.autor = autor;
@@ -40,14 +42,13 @@ public class Livro implements Serializable {
         this.assunto = assunto;
         this.ano = ano;
         this.qtd = qtd;
-        this.dataCadastro = dataCadastro;
     }
 
-    public Long getId() {
+    public Integer getId() {
         return id;
     }
 
-    public void setId(Long id) {
+    public void setId(Integer id) {
         this.id = id;
     }
 
@@ -83,11 +84,11 @@ public class Livro implements Serializable {
         this.assunto = assunto;
     }
 
-    public Integer getAno() {
+    public LocalDateTime getAno() {
         return ano;
     }
 
-    public void setAno(Integer ano) {
+    public void setAno(LocalDateTime ano) {
         this.ano = ano;
     }
 
