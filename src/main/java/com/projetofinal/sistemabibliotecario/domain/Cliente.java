@@ -1,5 +1,7 @@
 package com.projetofinal.sistemabibliotecario.domain;
 
+import com.projetofinal.sistemabibliotecario.domain.dtos.ClienteDTO;
+
 import javax.persistence.*;
 import java.io.Serializable;
 import java.util.Objects;
@@ -28,6 +30,14 @@ public class Cliente implements Serializable {
         this.email = email;
         this.endereco = endereco;
         this.cidade = cidade;
+    }
+
+    public Cliente(ClienteDTO obj) {
+        this.id = obj.getId();
+        this.nome = obj.getNome();
+        this.email = obj.getEmail();
+        this.endereco = obj.getEndereco();
+        this.cidade = obj.getCidade();
     }
 
     public Integer getId() {
