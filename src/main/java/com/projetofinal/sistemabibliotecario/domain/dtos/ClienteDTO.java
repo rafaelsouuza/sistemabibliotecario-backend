@@ -2,15 +2,24 @@ package com.projetofinal.sistemabibliotecario.domain.dtos;
 
 import com.projetofinal.sistemabibliotecario.domain.Cliente;
 
+import javax.validation.constraints.NotNull;
 import java.io.Serializable;
 
 public class ClienteDTO implements Serializable {
     private static final long serialVersionUID = 1L;
 
     private Integer id;
+
+    @NotNull(message = "O campo NOME é requerido")
     private String nome;
+
+    @NotNull(message = "O campo E-MAIL é requerido")
     private String email;
+
+    @NotNull(message = "O campo ENDEREÇO é requerido")
     private String endereco;
+
+    @NotNull(message = "O campo CIDADE é requerido")
     private String cidade;
 
     public ClienteDTO() {
