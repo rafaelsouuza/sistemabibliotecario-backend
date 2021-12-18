@@ -7,6 +7,7 @@ import com.projetofinal.sistemabibliotecario.services.exceptions.ObjectNotFoundE
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.stereotype.Service;
 
+import javax.validation.Valid;
 import java.util.List;
 import java.util.Optional;
 
@@ -29,5 +30,12 @@ public class ClienteService {
         objDTO.setId(null);
         Cliente newObj = new Cliente(objDTO);
         return clienteRepository.save(newObj);
+    }
+
+    public Cliente update(Integer id, @Valid ClienteDTO objDTO) {
+        objDTO.setId(id);
+        Cliente oldObj = findById(id);
+        oldObj = new Cliente(objDTO);
+        return clienteRepository.save(oldObj);
     }
 }
