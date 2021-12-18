@@ -45,4 +45,10 @@ public class ClienteResource {
         Cliente obj = clienteService.update(id, objDTO);
         return ResponseEntity.ok().body(new ClienteDTO(obj));
     }
+
+    @DeleteMapping(value = "/{id}")
+    public ResponseEntity<ClienteDTO> delete (@PathVariable Integer id) {
+        clienteService.delete(id);
+        return ResponseEntity.noContent().build();
+    }
 }

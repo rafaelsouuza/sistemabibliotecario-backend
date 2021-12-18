@@ -38,4 +38,9 @@ public class ClienteService {
         oldObj = new Cliente(objDTO);
         return clienteRepository.save(oldObj);
     }
+
+    public void delete(Integer id) {
+        Cliente obj = findById(id);
+        clienteRepository.deleteById(id);
+    }
 }
