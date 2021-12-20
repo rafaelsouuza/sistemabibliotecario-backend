@@ -30,7 +30,7 @@ public class DBService {
     private UsuarioRepository usuarioRepository;
 
     public void instanciaDB() {
-        Usuario user1 = new Usuario(null, "Rafel", "rafael@email.com", "134");
+        Usuario user1 = new Usuario(null, "Rafael", "rafael@email.com", "134");
         user1.addPerfil(Perfil.ADMIN);
 
         Cliente cli1 = new Cliente(null, "Samuel", "samuel@email.com", "Quadra 22 Casa 20", "Itapoã");

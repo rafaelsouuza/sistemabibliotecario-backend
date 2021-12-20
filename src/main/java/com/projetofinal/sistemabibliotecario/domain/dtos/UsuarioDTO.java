@@ -1,57 +1,48 @@
-package com.projetofinal.sistemabibliotecario.domain;
+package com.projetofinal.sistemabibliotecario.domain.dtos;
 
 import com.fasterxml.jackson.annotation.JsonFormat;
-import com.projetofinal.sistemabibliotecario.domain.dtos.UsuarioDTO;
+import com.projetofinal.sistemabibliotecario.domain.Usuario;
 import com.projetofinal.sistemabibliotecario.domain.enums.Perfil;
 
-import javax.persistence.*;
+import javax.validation.constraints.NotNull;
 import java.io.Serializable;
 import java.time.LocalDate;
 import java.util.HashSet;
-import java.util.Objects;
 import java.util.Set;
 import java.util.stream.Collectors;
 
-@Entity
-public class Usuario implements Serializable {
+public class UsuarioDTO implements Serializable {
     private static final long serialVersionUID = 1L;
 
-    @Id
-    @GeneratedValue(strategy = GenerationType.IDENTITY)
     private Integer id;
+
+    @NotNull(message = "O campo NOME é requerido")
     private String nome;
 
-    @Column(unique = true)
+    @NotNull(message = "O campo E-MAIL é requerido")
     private String email;
+
+    @NotNull(message = "O campo SENHA é requerido")
     private String senha;
 
-    @ElementCollection(fetch = FetchType.EAGER)
-    @CollectionTable(name = "PERFIS")
     private Set<Integer> perfis = new HashSet<>();
 
     @JsonFormat(pattern = "dd/MM/yyyy")
-    private LocalDate dataCriacao = LocalDate.now();
+    private LocalDate datacriacao = LocalDate.now();
 
-    public Usuario() {
+    public UsuarioDTO() {
         super();
         addPerfil(Perfil.USUARIO);
     }
 
-    public Usuario(Integer id, String nome, String email, String senha) {
-        this.id = id;
-        this.nome = nome;
-        this.email = email;
-        this.senha = senha;
-        addPerfil(Perfil.USUARIO);
-    }
-
-    public Usuario(UsuarioDTO obj) {
+    public UsuarioDTO(Usuario obj) {
         this.id = obj.getId();
         this.nome = obj.getNome();
         this.email = obj.getEmail();
         this.senha = obj.getSenha();
         this.perfis = obj.getPerfis().stream().map(x -> x.getCodigo()).collect(Collectors.toSet());
-        this.dataCriacao = obj.getDatacriacao();
+        this.datacriacao = obj.getDataCriacao();
+        addPerfil(Perfil.USUARIO);
     }
 
     public Integer getId() {
@@ -94,24 +85,11 @@ public class Usuario implements Serializable {
         this.perfis.add(perfil.getCodigo());
     }
 
-    public LocalDate getDataCriacao() {
-        return dataCriacao;
+    public LocalDate getDatacriacao() {
+        return datacriacao;
     }
 
-    public void setDataCriacao(LocalDate dataCriacao) {
-        this.dataCriacao = dataCriacao;
-    }
-
-    @Override
-    public boolean equals(Object o) {
-        if (this == o) return true;
-        if (o == null || getClass() != o.getClass()) return false;
-        Usuario usuario = (Usuario) o;
-        return Objects.equals(id, usuario.id);
-    }
-
-    @Override
-    public int hashCode() {
-        return Objects.hash(id);
+    public void setDatacriacao(LocalDate datacriacao) {
+        this.datacriacao = datacriacao;
     }
 }
