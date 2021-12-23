@@ -1,6 +1,8 @@
 package com.projetofinal.sistemabibliotecario.services;
 
+import com.projetofinal.sistemabibliotecario.domain.Cliente;
 import com.projetofinal.sistemabibliotecario.domain.Emprestimo;
+import com.projetofinal.sistemabibliotecario.domain.Livro;
 import com.projetofinal.sistemabibliotecario.domain.dtos.EmprestimoDTO;
 import com.projetofinal.sistemabibliotecario.repositories.EmprestimoRepository;
 import com.projetofinal.sistemabibliotecario.services.exceptions.ObjectNotFoundException;
@@ -15,7 +17,11 @@ import java.util.Optional;
 public class EmprestimoService {
 
     @Autowired
-    EmprestimoRepository emprestimoRepository;
+    private EmprestimoRepository emprestimoRepository;
+    @Autowired
+    private LivroService livroService;
+    @Autowired
+    private ClienteService clienteService;
 
     public Emprestimo findById(Integer id) {
         Optional<Emprestimo> obj = emprestimoRepository.findById(id);
@@ -27,9 +33,7 @@ public class EmprestimoService {
     }
 
     public Emprestimo create(EmprestimoDTO objDTO) {
-        objDTO.setId(null);
-        Emprestimo newObj = new Emprestimo(objDTO);
-        return emprestimoRepository.save(newObj);
+        return emprestimoRepository.save(newEmprestimo(objDTO));
     }
 
     public Emprestimo update(Integer id, @Valid EmprestimoDTO objDTO) {
@@ -42,5 +46,20 @@ public class EmprestimoService {
     public void delete(Integer id) {
         Emprestimo obj = findById(id);
         emprestimoRepository.deleteById(id);
+    }
+
+    private Emprestimo newEmprestimo(EmprestimoDTO obj) {
+        Livro livro = livroService.findById(obj.getLivro());
+        Cliente cliente = clienteService.findById(obj.getCliente());
+
+        Emprestimo emprestimo = new Emprestimo();
+        if (obj.getId() != null) {
+            emprestimo.setId(obj.getId());
+        }
+
+        emprestimo.setLivro(livro);
+        emprestimo.setCliente(cliente);
+        emprestimo.setQtd(obj.getQtd());
+        return emprestimo;
     }
 }

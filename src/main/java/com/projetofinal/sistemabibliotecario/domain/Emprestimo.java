@@ -42,8 +42,6 @@ public class Emprestimo implements Serializable {
     public Emprestimo(EmprestimoDTO obj) {
         this.id = obj.getId();
         this.qtd = obj.getQtd();
-        this.cliente = obj.getCliente();
-        this.livro = obj.getLivro();
         this.dataEmprestimo = obj.getDataEmprestimo();
         this.dataDevolucao = obj.getDataDevolucao();
     }

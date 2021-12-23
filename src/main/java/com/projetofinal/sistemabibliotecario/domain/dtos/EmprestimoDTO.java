@@ -1,9 +1,7 @@
 package com.projetofinal.sistemabibliotecario.domain.dtos;
 
 import com.fasterxml.jackson.annotation.JsonFormat;
-import com.projetofinal.sistemabibliotecario.domain.Cliente;
 import com.projetofinal.sistemabibliotecario.domain.Emprestimo;
-import com.projetofinal.sistemabibliotecario.domain.Livro;
 
 import javax.validation.constraints.NotNull;
 import java.io.Serializable;
@@ -23,9 +21,10 @@ public class EmprestimoDTO implements Serializable {
     @JsonFormat(pattern = "dd/MM/yyyy")
     private LocalDateTime dataDevolucao  = dataEmprestimo.plusDays(30);
 
-    private Cliente cliente;
-
-    private Livro livro;
+    private Integer cliente;
+    private Integer livro;
+    private String nomeCliente;
+    private String nomeLivro;
 
     public EmprestimoDTO() {
         super();
@@ -34,11 +33,12 @@ public class EmprestimoDTO implements Serializable {
     public EmprestimoDTO(Emprestimo obj) {
         this.id = obj.getId();
         this.qtd = obj.getQtd();
-        this.cliente = obj.getCliente();
-        this.livro = obj.getLivro();
+        this.cliente = obj.getCliente().getId();
+        this.livro = obj.getLivro().getId();
+        this.nomeCliente = obj.getCliente().getNome();
+        this.nomeLivro = obj.getLivro().getTitulo();
         this.dataEmprestimo = obj.getDataEmprestimo();
         this.dataDevolucao = obj.getDataDevolucao();
-
     }
 
     public Integer getId() {
@@ -73,19 +73,35 @@ public class EmprestimoDTO implements Serializable {
         this.dataDevolucao = dataDevolucao;
     }
 
-    public Cliente getCliente() {
+    public Integer getCliente() {
         return cliente;
     }
 
-    public void setCliente(Cliente cliente) {
+    public void setCliente(Integer cliente) {
         this.cliente = cliente;
     }
 
-    public Livro getLivro() {
+    public Integer getLivro() {
         return livro;
     }
 
-    public void setLivro(Livro livro) {
+    public void setLivro(Integer livro) {
         this.livro = livro;
+    }
+
+    public String getNomeCliente() {
+        return nomeCliente;
+    }
+
+    public void setNomeCliente(String nomeCliente) {
+        this.nomeCliente = nomeCliente;
+    }
+
+    public String getNomeLivro() {
+        return nomeLivro;
+    }
+
+    public void setNomeLivro(String nomeLivro) {
+        this.nomeLivro = nomeLivro;
     }
 }
