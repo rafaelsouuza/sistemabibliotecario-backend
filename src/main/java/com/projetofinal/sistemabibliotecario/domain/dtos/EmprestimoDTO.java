@@ -11,17 +11,15 @@ public class EmprestimoDTO implements Serializable {
     private static final long serialVersionUID = 1L;
 
     private Integer id;
-
     @NotNull(message = "O campo NOME é requerido")
     private Integer qtd;
-
     @JsonFormat(pattern = "dd/MM/yyyy")
     private LocalDateTime dataEmprestimo = LocalDateTime.now();
-
     @JsonFormat(pattern = "dd/MM/yyyy")
     private LocalDateTime dataDevolucao  = dataEmprestimo.plusDays(30);
-
+    @NotNull(message = "O campo CLIENTE é requerido")
     private Integer cliente;
+    @NotNull(message = "O campo LIVRO é requerido")
     private Integer livro;
     private String nomeCliente;
     private String nomeLivro;
@@ -35,10 +33,10 @@ public class EmprestimoDTO implements Serializable {
         this.qtd = obj.getQtd();
         this.cliente = obj.getCliente().getId();
         this.livro = obj.getLivro().getId();
-        this.nomeCliente = obj.getCliente().getNome();
-        this.nomeLivro = obj.getLivro().getTitulo();
         this.dataEmprestimo = obj.getDataEmprestimo();
         this.dataDevolucao = obj.getDataDevolucao();
+        this.nomeCliente = obj.getCliente().getNome();
+        this.nomeLivro = obj.getLivro().getTitulo();
     }
 
     public Integer getId() {

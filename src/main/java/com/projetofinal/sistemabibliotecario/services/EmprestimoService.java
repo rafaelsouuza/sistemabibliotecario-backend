@@ -39,7 +39,7 @@ public class EmprestimoService {
     public Emprestimo update(Integer id, @Valid EmprestimoDTO objDTO) {
         objDTO.setId(id);
         Emprestimo oldObj = findById(id);
-        oldObj = new Emprestimo(objDTO);
+        oldObj = newEmprestimo(objDTO);
         return emprestimoRepository.save(oldObj);
     }
 

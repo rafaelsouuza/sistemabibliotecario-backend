@@ -23,9 +23,11 @@ public class Emprestimo implements Serializable {
     private LocalDateTime dataDevolucao  = dataEmprestimo.plusDays(30);
 
     @ManyToOne
+    @JoinColumn(name = "cliente_id")
     private Cliente cliente;
 
     @ManyToOne
+    @JoinColumn(name = "livro_id")
     private Livro livro;
 
     public Emprestimo() {
@@ -37,13 +39,6 @@ public class Emprestimo implements Serializable {
         this.qtd = qtd;
         this.cliente = cliente;
         this.livro = livro;
-    }
-
-    public Emprestimo(EmprestimoDTO obj) {
-        this.id = obj.getId();
-        this.qtd = obj.getQtd();
-        this.dataEmprestimo = obj.getDataEmprestimo();
-        this.dataDevolucao = obj.getDataDevolucao();
     }
 
     public Integer getId() {
