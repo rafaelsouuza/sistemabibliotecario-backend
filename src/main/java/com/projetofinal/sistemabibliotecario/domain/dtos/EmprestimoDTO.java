@@ -1,19 +1,20 @@
-package com.projetofinal.sistemabibliotecario.domain;
+package com.projetofinal.sistemabibliotecario.domain.dtos;
 
 import com.fasterxml.jackson.annotation.JsonFormat;
-import com.projetofinal.sistemabibliotecario.domain.dtos.EmprestimoDTO;
+import com.projetofinal.sistemabibliotecario.domain.Cliente;
+import com.projetofinal.sistemabibliotecario.domain.Emprestimo;
+import com.projetofinal.sistemabibliotecario.domain.Livro;
 
-import javax.persistence.*;
+import javax.validation.constraints.NotNull;
 import java.io.Serializable;
 import java.time.LocalDateTime;
 
-@Entity
-public class Emprestimo implements Serializable {
+public class EmprestimoDTO implements Serializable {
     private static final long serialVersionUID = 1L;
 
-    @Id
-    @GeneratedValue(strategy = GenerationType.IDENTITY)
     private Integer id;
+
+    @NotNull(message = "O campo NOME é requerido")
     private Integer qtd;
 
     @JsonFormat(pattern = "dd/MM/yyyy")
@@ -22,30 +23,22 @@ public class Emprestimo implements Serializable {
     @JsonFormat(pattern = "dd/MM/yyyy")
     private LocalDateTime dataDevolucao  = dataEmprestimo.plusDays(30);
 
-    @ManyToOne
     private Cliente cliente;
 
-    @ManyToOne
     private Livro livro;
 
-    public Emprestimo() {
+    public EmprestimoDTO() {
         super();
     }
 
-    public Emprestimo(Integer id, Integer qtd, Cliente cliente, Livro livro) {
-        this.id = id;
-        this.qtd = qtd;
-        this.cliente = cliente;
-        this.livro = livro;
-    }
-
-    public Emprestimo(EmprestimoDTO obj) {
+    public EmprestimoDTO(Emprestimo obj) {
         this.id = obj.getId();
         this.qtd = obj.getQtd();
         this.cliente = obj.getCliente();
         this.livro = obj.getLivro();
         this.dataEmprestimo = obj.getDataEmprestimo();
         this.dataDevolucao = obj.getDataDevolucao();
+
     }
 
     public Integer getId() {
