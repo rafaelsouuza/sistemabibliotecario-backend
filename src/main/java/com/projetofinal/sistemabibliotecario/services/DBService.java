@@ -34,15 +34,20 @@ public class DBService {
         user1.addPerfil(Perfil.ADMIN);
 
         Cliente cli1 = new Cliente(null, "Samuel", "samuel@email.com", "Quadra 22 Casa 20", "Itapoã");
+        Cliente cli2 = new Cliente(null, "Rafael", "rafael@email.com", "Quadra 22 Casa 20", "Itapoã");
 
         Livro liv1 = new Livro(null, "Harry Potter", "J. K. Rowling", "hboMax",
                 "Livro do Harry", null, 1);
 
+        Livro liv2 = new Livro(null, "Harry Potter 2", "J. K. Rowling", "hboMax",
+                "Livro do Harry é a camera secreta", null, 2);
+
         Emprestimo emp1 = new Emprestimo(null, 2, cli1, liv1);
+        Emprestimo emp2 = new Emprestimo(null, 2, cli2, liv1);
 
         usuarioRepository.saveAll(Arrays.asList(user1));
-        clienteRepository.saveAll(Arrays.asList(cli1));
-        livroRepository.saveAll(Arrays.asList(liv1));
-        emprestimoRepository.saveAll(Arrays.asList(emp1));
+        clienteRepository.saveAll(Arrays.asList(cli1,cli2));
+        livroRepository.saveAll(Arrays.asList(liv1,liv2));
+        emprestimoRepository.saveAll(Arrays.asList(emp1,emp2));
     }
 }

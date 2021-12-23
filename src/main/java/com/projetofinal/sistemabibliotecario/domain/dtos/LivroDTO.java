@@ -1,52 +1,42 @@
-package com.projetofinal.sistemabibliotecario.domain;
+package com.projetofinal.sistemabibliotecario.domain.dtos;
 
 import com.fasterxml.jackson.annotation.JsonFormat;
-import com.projetofinal.sistemabibliotecario.domain.dtos.LivroDTO;
+import com.projetofinal.sistemabibliotecario.domain.Livro;
 
-import javax.persistence.Entity;
-import javax.persistence.GeneratedValue;
-import javax.persistence.GenerationType;
-import javax.persistence.Id;
+import javax.validation.constraints.NotNull;
 import java.io.Serializable;
 import java.time.LocalDateTime;
-import java.util.Objects;
 
-@Entity
-public class Livro implements Serializable {
+public class LivroDTO implements Serializable {
     private static final long serialVersionUID = 1L;
 
-    @Id
-    @GeneratedValue(strategy = GenerationType.IDENTITY)
     private Integer id;
+
+    @NotNull(message = "O campo TÍTULO é requerido")
     private String titulo;
+
+    @NotNull(message = "O campo AUTOR é requerido")
     private String autor;
+
+    @NotNull(message = "O campo EDITORA é requerido")
     private String editora;
+
     private String assunto;
 
     @JsonFormat(pattern = "dd/MM/yyyy")
     private LocalDateTime anoLancamento;
 
+    @NotNull(message = "O campo QUANTIDADE é requerido")
     private Integer qtd;
 
     @JsonFormat(pattern = "dd/MM/yyyy")
     private LocalDateTime dataCadastro = LocalDateTime.now();
 
-    public Livro() {
+    public LivroDTO() {
         super();
     }
 
-    public Livro(Integer id, String titulo, String autor, String editora, String assunto, LocalDateTime anoLancamento,
-                 Integer qtd) {
-        this.id = id;
-        this.titulo = titulo;
-        this.autor = autor;
-        this.editora = editora;
-        this.assunto = assunto;
-        this.anoLancamento = anoLancamento;
-        this.qtd = qtd;
-    }
-
-    public Livro(LivroDTO obj) {
+    public LivroDTO(Livro obj) {
         this.id = obj.getId();
         this.titulo = obj.getTitulo();
         this.autor = obj.getAutor();
@@ -101,7 +91,7 @@ public class Livro implements Serializable {
         return anoLancamento;
     }
 
-    public void setAno(LocalDateTime anoLancamento) {
+    public void setAnoLancamento(LocalDateTime anoLancamento) {
         this.anoLancamento = anoLancamento;
     }
 
@@ -121,16 +111,4 @@ public class Livro implements Serializable {
         this.dataCadastro = dataCadastro;
     }
 
-    @Override
-    public boolean equals(Object o) {
-        if (this == o) return true;
-        if (o == null || getClass() != o.getClass()) return false;
-        Livro livro = (Livro) o;
-        return Objects.equals(id, livro.id);
-    }
-
-    @Override
-    public int hashCode() {
-        return Objects.hash(id);
-    }
 }
