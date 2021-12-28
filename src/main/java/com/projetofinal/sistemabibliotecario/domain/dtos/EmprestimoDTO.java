@@ -16,7 +16,9 @@ public class EmprestimoDTO implements Serializable {
     @JsonFormat(pattern = "dd/MM/yyyy")
     private LocalDateTime dataEmprestimo = LocalDateTime.now();
     @JsonFormat(pattern = "dd/MM/yyyy")
-    private LocalDateTime dataDevolucao  = dataEmprestimo.plusDays(30);
+    private LocalDateTime dataDevolucao;
+    @NotNull(message = "O campo PRIORIDADE é requerido")
+    private Integer status;
     @NotNull(message = "O campo CLIENTE é requerido")
     private Integer cliente;
     @NotNull(message = "O campo LIVRO é requerido")
@@ -35,6 +37,7 @@ public class EmprestimoDTO implements Serializable {
         this.livro = obj.getLivro().getId();
         this.dataEmprestimo = obj.getDataEmprestimo();
         this.dataDevolucao = obj.getDataDevolucao();
+        this.status = obj.getStatus().getCodigo();
         this.nomeCliente = obj.getCliente().getNome();
         this.nomeLivro = obj.getLivro().getTitulo();
     }
@@ -101,5 +104,13 @@ public class EmprestimoDTO implements Serializable {
 
     public void setNomeLivro(String nomeLivro) {
         this.nomeLivro = nomeLivro;
+    }
+
+    public Integer getStatus() {
+        return status;
+    }
+
+    public void setStatus(Integer status) {
+        this.status = status;
     }
 }

@@ -5,6 +5,7 @@ import com.projetofinal.sistemabibliotecario.domain.Emprestimo;
 import com.projetofinal.sistemabibliotecario.domain.Livro;
 import com.projetofinal.sistemabibliotecario.domain.Usuario;
 import com.projetofinal.sistemabibliotecario.domain.enums.Perfil;
+import com.projetofinal.sistemabibliotecario.domain.enums.Status;
 import com.projetofinal.sistemabibliotecario.repositories.ClienteRepository;
 import com.projetofinal.sistemabibliotecario.repositories.EmprestimoRepository;
 import com.projetofinal.sistemabibliotecario.repositories.LivroRepository;
@@ -42,8 +43,8 @@ public class DBService {
         Livro liv2 = new Livro(null, "Harry Potter 2", "J. K. Rowling", "hboMax",
                 "Livro do Harry é a camera secreta", null, 2);
 
-        Emprestimo emp1 = new Emprestimo(null, 2, cli1, liv1);
-        Emprestimo emp2 = new Emprestimo(null, 2, cli2, liv1);
+        Emprestimo emp1 = new Emprestimo(null, 2, cli1, liv1, Status.EMPRESTADO);
+        Emprestimo emp2 = new Emprestimo(null, 2, cli2, liv1, Status.DEVOLVIDO);
 
         usuarioRepository.saveAll(Arrays.asList(user1));
         clienteRepository.saveAll(Arrays.asList(cli1,cli2));

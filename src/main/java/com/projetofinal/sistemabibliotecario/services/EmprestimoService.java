@@ -4,12 +4,14 @@ import com.projetofinal.sistemabibliotecario.domain.Cliente;
 import com.projetofinal.sistemabibliotecario.domain.Emprestimo;
 import com.projetofinal.sistemabibliotecario.domain.Livro;
 import com.projetofinal.sistemabibliotecario.domain.dtos.EmprestimoDTO;
+import com.projetofinal.sistemabibliotecario.domain.enums.Status;
 import com.projetofinal.sistemabibliotecario.repositories.EmprestimoRepository;
 import com.projetofinal.sistemabibliotecario.services.exceptions.ObjectNotFoundException;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.stereotype.Service;
 
 import javax.validation.Valid;
+import java.time.LocalDateTime;
 import java.util.List;
 import java.util.Optional;
 
@@ -57,9 +59,14 @@ public class EmprestimoService {
             emprestimo.setId(obj.getId());
         }
 
+        if(obj.getStatus().equals(1)) {
+            emprestimo.setDataDevolucao(LocalDateTime.now());
+        }
+
         emprestimo.setLivro(livro);
         emprestimo.setCliente(cliente);
         emprestimo.setQtd(obj.getQtd());
+        emprestimo.setStatus(Status.toEnum(obj.getStatus()));
         return emprestimo;
     }
 }

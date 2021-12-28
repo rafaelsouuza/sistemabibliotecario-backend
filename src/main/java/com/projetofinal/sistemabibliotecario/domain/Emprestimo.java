@@ -1,7 +1,7 @@
 package com.projetofinal.sistemabibliotecario.domain;
 
 import com.fasterxml.jackson.annotation.JsonFormat;
-import com.projetofinal.sistemabibliotecario.domain.dtos.EmprestimoDTO;
+import com.projetofinal.sistemabibliotecario.domain.enums.Status;
 
 import javax.persistence.*;
 import java.io.Serializable;
@@ -20,7 +20,9 @@ public class Emprestimo implements Serializable {
     private LocalDateTime dataEmprestimo = LocalDateTime.now();
 
     @JsonFormat(pattern = "dd/MM/yyyy")
-    private LocalDateTime dataDevolucao  = dataEmprestimo.plusDays(30);
+    private LocalDateTime dataDevolucao;
+
+    private Status status;
 
     @ManyToOne
     @JoinColumn(name = "cliente_id")
@@ -34,11 +36,12 @@ public class Emprestimo implements Serializable {
         super();
     }
 
-    public Emprestimo(Integer id, Integer qtd, Cliente cliente, Livro livro) {
+    public Emprestimo(Integer id, Integer qtd, Cliente cliente, Livro livro, Status status) {
         this.id = id;
         this.qtd = qtd;
         this.cliente = cliente;
         this.livro = livro;
+        this.status = status;
     }
 
     public Integer getId() {
@@ -87,5 +90,13 @@ public class Emprestimo implements Serializable {
 
     public void setLivro(Livro livro) {
         this.livro = livro;
+    }
+
+    public Status getStatus() {
+        return status;
+    }
+
+    public void setStatus(Status status) {
+        this.status = status;
     }
 }
