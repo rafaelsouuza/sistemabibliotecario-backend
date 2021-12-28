@@ -5,6 +5,7 @@ import com.projetofinal.sistemabibliotecario.domain.dtos.UsuarioDTO;
 import com.projetofinal.sistemabibliotecario.services.UsuarioService;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.http.ResponseEntity;
+import org.springframework.security.access.prepost.PreAuthorize;
 import org.springframework.web.bind.annotation.*;
 import org.springframework.web.servlet.support.ServletUriComponentsBuilder;
 
@@ -33,6 +34,7 @@ public class UsuarioResource {
         return ResponseEntity.ok().body(listDTO);
     }
 
+    @PreAuthorize("hasAnyRole('ADMIN')")
     @PostMapping
     public ResponseEntity<UsuarioDTO> create(@Valid @RequestBody UsuarioDTO objDTO) {
         Usuario newObj = usuarioService.create(objDTO);
@@ -40,12 +42,14 @@ public class UsuarioResource {
         return ResponseEntity.created(uri).build();
     }
 
+    @PreAuthorize("hasAnyRole('ADMIN')")
     @PutMapping(value = "/{id}")
     public ResponseEntity<UsuarioDTO> update(@PathVariable Integer id, @Valid @RequestBody UsuarioDTO objDTO) {
         Usuario obj = usuarioService.update(id, objDTO);
         return ResponseEntity.ok().body(new UsuarioDTO(obj));
     }
 
+    @PreAuthorize("hasAnyRole('ADMIN')")
     @DeleteMapping(value = "/{id}")
     public ResponseEntity<UsuarioDTO> delete (@PathVariable Integer id) {
         usuarioService.delete(id);
