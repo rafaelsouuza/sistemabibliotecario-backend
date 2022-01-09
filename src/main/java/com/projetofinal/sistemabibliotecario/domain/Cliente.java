@@ -17,6 +17,10 @@ public class Cliente implements Serializable {
 
     @Column(unique = true)
     private String email;
+    private String telefone;
+
+    @Column(unique = true)
+    private String cpf;
     private String endereco;
     private String cidade;
 
@@ -24,10 +28,12 @@ public class Cliente implements Serializable {
         super();
     }
 
-    public Cliente(Integer id, String nome, String email, String endereco, String cidade) {
+    public Cliente(Integer id, String nome, String email,String telefone, String cpf, String endereco, String cidade) {
         this.id = id;
         this.nome = nome;
         this.email = email;
+        this.telefone = telefone;
+        this.cpf = cpf;
         this.endereco = endereco;
         this.cidade = cidade;
     }
@@ -36,6 +42,8 @@ public class Cliente implements Serializable {
         this.id = obj.getId();
         this.nome = obj.getNome();
         this.email = obj.getEmail();
+        this.telefone = obj.getTelefone();
+        this.cpf = obj.getCpf();
         this.endereco = obj.getEndereco();
         this.cidade = obj.getCidade();
     }
@@ -78,6 +86,22 @@ public class Cliente implements Serializable {
 
     public void setCidade(String cidade) {
         this.cidade = cidade;
+    }
+
+    public String getTelefone() {
+        return telefone;
+    }
+
+    public void setTelefone(String telefone) {
+        this.telefone = telefone;
+    }
+
+    public String getCpf() {
+        return cpf;
+    }
+
+    public void setCpf(String cpf) {
+        this.cpf = cpf;
     }
 
     @Override

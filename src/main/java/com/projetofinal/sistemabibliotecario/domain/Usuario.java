@@ -22,6 +22,9 @@ public class Usuario implements Serializable {
     private String nome;
 
     @Column(unique = true)
+    private String cpf;
+
+    @Column(unique = true)
     private String email;
     private String senha;
 
@@ -37,9 +40,10 @@ public class Usuario implements Serializable {
         addPerfil(Perfil.USUARIO);
     }
 
-    public Usuario(Integer id, String nome, String email, String senha) {
+    public Usuario(Integer id, String nome,String cpf, String email, String senha) {
         this.id = id;
         this.nome = nome;
+        this.cpf = cpf;
         this.email = email;
         this.senha = senha;
         addPerfil(Perfil.USUARIO);
@@ -48,6 +52,7 @@ public class Usuario implements Serializable {
     public Usuario(UsuarioDTO obj) {
         this.id = obj.getId();
         this.nome = obj.getNome();
+        this.cpf = obj.getCpf();
         this.email = obj.getEmail();
         this.senha = obj.getSenha();
         this.perfis = obj.getPerfis().stream().map(x -> x.getCodigo()).collect(Collectors.toSet());
@@ -100,6 +105,14 @@ public class Usuario implements Serializable {
 
     public void setDataCriacao(LocalDate dataCriacao) {
         this.dataCriacao = dataCriacao;
+    }
+
+    public String getCpf() {
+        return cpf;
+    }
+
+    public void setCpf(String cpf) {
+        this.cpf = cpf;
     }
 
     @Override

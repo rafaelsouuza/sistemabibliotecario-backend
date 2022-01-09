@@ -5,6 +5,7 @@ import com.projetofinal.sistemabibliotecario.domain.dtos.ClienteDTO;
 import com.projetofinal.sistemabibliotecario.repositories.ClienteRepository;
 import com.projetofinal.sistemabibliotecario.services.exceptions.ObjectNotFoundException;
 import org.springframework.beans.factory.annotation.Autowired;
+import org.springframework.dao.DataIntegrityViolationException;
 import org.springframework.stereotype.Service;
 
 import javax.validation.Valid;
@@ -28,6 +29,7 @@ public class ClienteService {
 
     public Cliente create(ClienteDTO objDTO) {
         objDTO.setId(null);
+        validaPorCpfEEmail(objDTO);
         Cliente newObj = new Cliente(objDTO);
         return clienteRepository.save(newObj);
     }
@@ -35,6 +37,7 @@ public class ClienteService {
     public Cliente update(Integer id, @Valid ClienteDTO objDTO) {
         objDTO.setId(id);
         Cliente oldObj = findById(id);
+        validaPorCpfEEmail(objDTO);
         oldObj = new Cliente(objDTO);
         return clienteRepository.save(oldObj);
     }
@@ -42,5 +45,17 @@ public class ClienteService {
     public void delete(Integer id) {
         Cliente obj = findById(id);
         clienteRepository.deleteById(id);
+    }
+
+    private void validaPorCpfEEmail(ClienteDTO objDTO) {
+        Optional<Cliente> obj = clienteRepository.findByCpf(objDTO.getCpf());
+        if (obj.isPresent() && obj.get().getId() != objDTO.getId()) {
+            throw new DataIntegrityViolationException("CPF já cadastrado no sistema!");
+        }
+
+        obj = clienteRepository.findByEmail(objDTO.getEmail());
+        if (obj.isPresent() && obj.get().getId() != objDTO.getId()) {
+            throw new DataIntegrityViolationException("E-mail já cadastrado no sistema!");
+        }
     }
 }

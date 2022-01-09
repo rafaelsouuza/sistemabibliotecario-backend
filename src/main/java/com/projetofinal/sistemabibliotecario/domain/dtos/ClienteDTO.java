@@ -1,6 +1,7 @@
 package com.projetofinal.sistemabibliotecario.domain.dtos;
 
 import com.projetofinal.sistemabibliotecario.domain.Cliente;
+import org.hibernate.validator.constraints.br.CPF;
 
 import javax.validation.constraints.NotNull;
 import java.io.Serializable;
@@ -16,6 +17,13 @@ public class ClienteDTO implements Serializable {
     @NotNull(message = "O campo E-MAIL é requerido")
     private String email;
 
+    @NotNull(message = "O campo TELEFONE é requerido")
+    private String telefone;
+
+    @NotNull(message = "O campo CPF é requerido")
+    @CPF
+    protected String cpf;
+
     @NotNull(message = "O campo ENDEREÇO é requerido")
     private String endereco;
 
@@ -30,6 +38,8 @@ public class ClienteDTO implements Serializable {
         this.id = obj.getId();
         this.nome = obj.getNome();
         this.email = obj.getEmail();
+        this.telefone = obj.getTelefone();
+        this.cpf = obj.getCpf();
         this.endereco = obj.getEndereco();
         this.cidade = obj.getCidade();
     }
@@ -72,5 +82,21 @@ public class ClienteDTO implements Serializable {
 
     public void setCidade(String cidade) {
         this.cidade = cidade;
+    }
+
+    public String getTelefone() {
+        return telefone;
+    }
+
+    public void setTelefone(String telefone) {
+        this.telefone = telefone;
+    }
+
+    public String getCpf() {
+        return cpf;
+    }
+
+    public void setCpf(String cpf) {
+        this.cpf = cpf;
     }
 }

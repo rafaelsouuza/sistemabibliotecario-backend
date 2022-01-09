@@ -3,6 +3,7 @@ package com.projetofinal.sistemabibliotecario.domain.dtos;
 import com.fasterxml.jackson.annotation.JsonFormat;
 import com.projetofinal.sistemabibliotecario.domain.Usuario;
 import com.projetofinal.sistemabibliotecario.domain.enums.Perfil;
+import org.hibernate.validator.constraints.br.CPF;
 
 import javax.validation.constraints.NotNull;
 import java.io.Serializable;
@@ -18,6 +19,10 @@ public class UsuarioDTO implements Serializable {
 
     @NotNull(message = "O campo NOME é requerido")
     private String nome;
+
+    @NotNull(message = "O campo CPF é requerido")
+    @CPF
+    protected String cpf;
 
     @NotNull(message = "O campo E-MAIL é requerido")
     private String email;
@@ -38,6 +43,7 @@ public class UsuarioDTO implements Serializable {
     public UsuarioDTO(Usuario obj) {
         this.id = obj.getId();
         this.nome = obj.getNome();
+        this.cpf = obj.getCpf();
         this.email = obj.getEmail();
         this.senha = obj.getSenha();
         this.perfis = obj.getPerfis().stream().map(x -> x.getCodigo()).collect(Collectors.toSet());
@@ -91,5 +97,13 @@ public class UsuarioDTO implements Serializable {
 
     public void setDatacriacao(LocalDate datacriacao) {
         this.datacriacao = datacriacao;
+    }
+
+    public String getCpf() {
+        return cpf;
+    }
+
+    public void setCpf(String cpf) {
+        this.cpf = cpf;
     }
 }
