@@ -2,12 +2,14 @@ package com.projetofinal.sistemabibliotecario.domain;
 
 import com.fasterxml.jackson.annotation.JsonFormat;
 import com.projetofinal.sistemabibliotecario.domain.dtos.LivroDTO;
+import org.springframework.format.annotation.DateTimeFormat;
 
 import javax.persistence.Entity;
 import javax.persistence.GeneratedValue;
 import javax.persistence.GenerationType;
 import javax.persistence.Id;
 import java.io.Serializable;
+import java.time.LocalDate;
 import java.time.LocalDateTime;
 import java.util.Objects;
 
@@ -19,14 +21,14 @@ public class Livro implements Serializable {
     @GeneratedValue(strategy = GenerationType.IDENTITY)
     private Integer id;
     private String titulo;
+    private String isbn;
     private String autor;
     private String editora;
     private String assunto;
 
+    @DateTimeFormat(iso = DateTimeFormat.ISO.DATE_TIME)
     @JsonFormat(pattern = "dd/MM/yyyy")
-    private LocalDateTime anoLancamento;
-
-    private Integer qtd;
+    private LocalDate anoLancamento;
 
     @JsonFormat(pattern = "dd/MM/yyyy")
     private LocalDateTime dataCadastro = LocalDateTime.now();
@@ -35,25 +37,25 @@ public class Livro implements Serializable {
         super();
     }
 
-    public Livro(Integer id, String titulo, String autor, String editora, String assunto, LocalDateTime anoLancamento,
-                 Integer qtd) {
+    public Livro(Integer id, String titulo, String isbn, String autor, String editora, String assunto, LocalDate anoLancamento
+                 ) {
         this.id = id;
         this.titulo = titulo;
+        this.isbn = isbn;
         this.autor = autor;
         this.editora = editora;
         this.assunto = assunto;
         this.anoLancamento = anoLancamento;
-        this.qtd = qtd;
     }
 
     public Livro(LivroDTO obj) {
         this.id = obj.getId();
         this.titulo = obj.getTitulo();
         this.autor = obj.getAutor();
+        this.isbn = obj.getIsbn();
         this.editora = obj.getEditora();
         this.assunto = obj.getAssunto();
         this.anoLancamento = obj.getAnoLancamento();
-        this.qtd = obj.getQtd();
         this.dataCadastro = obj.getDataCadastro();
     }
 
@@ -71,6 +73,14 @@ public class Livro implements Serializable {
 
     public void setTitulo(String titulo) {
         this.titulo = titulo;
+    }
+
+    public String getIsbn() {
+        return isbn;
+    }
+
+    public void setIsbn(String isbn) {
+        this.isbn = isbn;
     }
 
     public String getAutor() {
@@ -97,20 +107,12 @@ public class Livro implements Serializable {
         this.assunto = assunto;
     }
 
-    public LocalDateTime getAnoLancamento() {
+    public LocalDate getAnoLancamento() {
         return anoLancamento;
     }
 
-    public void setAno(LocalDateTime anoLancamento) {
+    public void setAnoLancamento(LocalDate anoLancamento) {
         this.anoLancamento = anoLancamento;
-    }
-
-    public Integer getQtd() {
-        return qtd;
-    }
-
-    public void setQtd(Integer qtd) {
-        this.qtd = qtd;
     }
 
     public LocalDateTime getDataCadastro() {

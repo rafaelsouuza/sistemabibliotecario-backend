@@ -5,7 +5,7 @@ import com.projetofinal.sistemabibliotecario.domain.enums.Status;
 
 import javax.persistence.*;
 import java.io.Serializable;
-import java.time.LocalDateTime;
+import java.time.LocalDate;
 
 @Entity
 public class Emprestimo implements Serializable {
@@ -14,13 +14,12 @@ public class Emprestimo implements Serializable {
     @Id
     @GeneratedValue(strategy = GenerationType.IDENTITY)
     private Integer id;
-    private Integer qtd;
 
     @JsonFormat(pattern = "dd/MM/yyyy")
-    private LocalDateTime dataEmprestimo = LocalDateTime.now();
+    private LocalDate dataEmprestimo = LocalDate.now();
 
     @JsonFormat(pattern = "dd/MM/yyyy")
-    private LocalDateTime dataDevolucao;
+    private LocalDate dataDevolucao = dataEmprestimo.plusDays(30);
 
     private Status status;
 
@@ -36,9 +35,8 @@ public class Emprestimo implements Serializable {
         super();
     }
 
-    public Emprestimo(Integer id, Integer qtd, Cliente cliente, Livro livro, Status status) {
+    public Emprestimo(Integer id, Cliente cliente, Livro livro, Status status) {
         this.id = id;
-        this.qtd = qtd;
         this.cliente = cliente;
         this.livro = livro;
         this.status = status;
@@ -52,27 +50,19 @@ public class Emprestimo implements Serializable {
         this.id = id;
     }
 
-    public Integer getQtd() {
-        return qtd;
-    }
-
-    public void setQtd(Integer qtd) {
-        this.qtd = qtd;
-    }
-
-    public LocalDateTime getDataEmprestimo() {
+    public LocalDate getDataEmprestimo() {
         return dataEmprestimo;
     }
 
-    public void setDataEmprestimo(LocalDateTime dataEmprestimo) {
+    public void setDataEmprestimo(LocalDate dataEmprestimo) {
         this.dataEmprestimo = dataEmprestimo;
     }
 
-    public LocalDateTime getDataDevolucao() {
+    public LocalDate getDataDevolucao() {
         return dataDevolucao;
     }
 
-    public void setDataDevolucao(LocalDateTime dataDevolucao) {
+    public void setDataDevolucao(LocalDate dataDevolucao) {
         this.dataDevolucao = dataDevolucao;
     }
 

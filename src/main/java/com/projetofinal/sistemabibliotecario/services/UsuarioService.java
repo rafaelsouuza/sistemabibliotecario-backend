@@ -48,7 +48,7 @@ public class UsuarioService {
         if(!objDTO.getSenha().equals(oldObj.getSenha())) {
             objDTO.setSenha(encoder.encode(objDTO.getSenha()));
         }
-        
+
         validaPorCpfEEmail(objDTO);
         oldObj = new Usuario (objDTO);
         return usuarioRepository.save(oldObj);

@@ -5,18 +5,16 @@ import com.projetofinal.sistemabibliotecario.domain.Emprestimo;
 
 import javax.validation.constraints.NotNull;
 import java.io.Serializable;
-import java.time.LocalDateTime;
+import java.time.LocalDate;
 
 public class EmprestimoDTO implements Serializable {
     private static final long serialVersionUID = 1L;
 
     private Integer id;
-    @NotNull(message = "O campo NOME é requerido")
-    private Integer qtd;
     @JsonFormat(pattern = "dd/MM/yyyy")
-    private LocalDateTime dataEmprestimo = LocalDateTime.now();
+    private LocalDate dataEmprestimo = LocalDate.now();
     @JsonFormat(pattern = "dd/MM/yyyy")
-    private LocalDateTime dataDevolucao;
+    private LocalDate dataDevolucao;
     @NotNull(message = "O campo PRIORIDADE é requerido")
     private Integer status;
     @NotNull(message = "O campo CLIENTE é requerido")
@@ -32,7 +30,6 @@ public class EmprestimoDTO implements Serializable {
 
     public EmprestimoDTO(Emprestimo obj) {
         this.id = obj.getId();
-        this.qtd = obj.getQtd();
         this.cliente = obj.getCliente().getId();
         this.livro = obj.getLivro().getId();
         this.dataEmprestimo = obj.getDataEmprestimo();
@@ -50,27 +47,19 @@ public class EmprestimoDTO implements Serializable {
         this.id = id;
     }
 
-    public Integer getQtd() {
-        return qtd;
-    }
-
-    public void setQtd(Integer qtd) {
-        this.qtd = qtd;
-    }
-
-    public LocalDateTime getDataEmprestimo() {
+    public LocalDate getDataEmprestimo() {
         return dataEmprestimo;
     }
 
-    public void setDataEmprestimo(LocalDateTime dataEmprestimo) {
+    public void setDataEmprestimo(LocalDate dataEmprestimo) {
         this.dataEmprestimo = dataEmprestimo;
     }
 
-    public LocalDateTime getDataDevolucao() {
+    public LocalDate getDataDevolucao() {
         return dataDevolucao;
     }
 
-    public void setDataDevolucao(LocalDateTime dataDevolucao) {
+    public void setDataDevolucao(LocalDate dataDevolucao) {
         this.dataDevolucao = dataDevolucao;
     }
 

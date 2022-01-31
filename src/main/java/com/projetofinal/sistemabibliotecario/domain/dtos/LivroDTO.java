@@ -2,9 +2,11 @@ package com.projetofinal.sistemabibliotecario.domain.dtos;
 
 import com.fasterxml.jackson.annotation.JsonFormat;
 import com.projetofinal.sistemabibliotecario.domain.Livro;
+import org.springframework.format.annotation.DateTimeFormat;
 
 import javax.validation.constraints.NotNull;
 import java.io.Serializable;
+import java.time.LocalDate;
 import java.time.LocalDateTime;
 
 public class LivroDTO implements Serializable {
@@ -15,6 +17,9 @@ public class LivroDTO implements Serializable {
     @NotNull(message = "O campo TÍTULO é requerido")
     private String titulo;
 
+    @NotNull(message = "O campo ISBN é requerido")
+    private String isbn;
+
     @NotNull(message = "O campo AUTOR é requerido")
     private String autor;
 
@@ -23,11 +28,9 @@ public class LivroDTO implements Serializable {
 
     private String assunto;
 
+    @DateTimeFormat(iso = DateTimeFormat.ISO.DATE_TIME)
     @JsonFormat(pattern = "dd/MM/yyyy")
-    private LocalDateTime anoLancamento;
-
-    @NotNull(message = "O campo QUANTIDADE é requerido")
-    private Integer qtd;
+    private LocalDate anoLancamento;
 
     @JsonFormat(pattern = "dd/MM/yyyy")
     private LocalDateTime dataCadastro = LocalDateTime.now();
@@ -43,7 +46,7 @@ public class LivroDTO implements Serializable {
         this.editora = obj.getEditora();
         this.assunto = obj.getAssunto();
         this.anoLancamento = obj.getAnoLancamento();
-        this.qtd = obj.getQtd();
+        this.isbn = obj.getIsbn();
         this.dataCadastro = obj.getDataCadastro();
     }
 
@@ -87,20 +90,20 @@ public class LivroDTO implements Serializable {
         this.assunto = assunto;
     }
 
-    public LocalDateTime getAnoLancamento() {
+    public LocalDate getAnoLancamento() {
         return anoLancamento;
     }
 
-    public void setAnoLancamento(LocalDateTime anoLancamento) {
+    public void setAnoLancamento(LocalDate anoLancamento) {
         this.anoLancamento = anoLancamento;
     }
 
-    public Integer getQtd() {
-        return qtd;
+    public String getIsbn() {
+        return isbn;
     }
 
-    public void setQtd(Integer qtd) {
-        this.qtd = qtd;
+    public void setIsbn(String isbn) {
+        this.isbn = isbn;
     }
 
     public LocalDateTime getDataCadastro() {

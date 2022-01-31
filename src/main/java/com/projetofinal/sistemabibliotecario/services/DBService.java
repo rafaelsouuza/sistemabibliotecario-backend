@@ -14,6 +14,8 @@ import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.security.crypto.bcrypt.BCryptPasswordEncoder;
 import org.springframework.stereotype.Service;
 
+import java.time.LocalDate;
+import java.time.LocalDateTime;
 import java.util.Arrays;
 
 @Service
@@ -47,19 +49,25 @@ public class DBService {
 
         Cliente cli1 = new Cliente(null, "Samuel", "samuel@email.com", "61984535533", "782.252.390-24", "Quadra 22 Casa 20", "Itapoã");
         Cliente cli2 = new Cliente(null, "Rafael", "rafael@email.com", "61984569533", "140.135.960-40", "Quadra 22 Casa 20", "Itapoã");
+        Cliente cli3 = new Cliente(null, "Tiago", "tiago@email.com", "61988575593", "082.346.510-13", "Quadra 30 Casa 19", "Itapoã");
+        Cliente cli4 = new Cliente(null, "Edvan", "edvanl@email.com", "61954669533", "058.774.770-64", "Quadra 40 Casa 03", "Itapoã");
 
-        Livro liv1 = new Livro(null, "Harry Potter", "J. K. Rowling", "hboMax",
-                "Livro do Harry", null, 1);
+        Livro liv1 = new Livro(null, "Harry Potter", "978 – 85 – 333 – 0227 – 3", "J. K. Rowling", "hboMax",
+                "Livro do Harry", LocalDate.of(2005, 05, 12));
 
-        Livro liv2 = new Livro(null, "Harry Potter 2", "J. K. Rowling", "hboMax",
-                "Livro do Harry é a camera secreta", null, 2);
+        Livro liv2 = new Livro(null, "Harry Potter 2", "978 – 85 – 443 – 0227 – 3", "J. K. Rowling", "hboMax",
+                "Livro do Harry é a camera secreta", LocalDate.of(2007, 03, 26));
 
-        Emprestimo emp1 = new Emprestimo(null, 2, cli1, liv1, Status.EMPRESTADO);
-        Emprestimo emp2 = new Emprestimo(null, 2, cli2, liv1, Status.DEVOLVIDO);
+        Emprestimo emp1 = new Emprestimo(null,  cli1, liv1, Status.EMPRESTADO);
+        Emprestimo emp2 = new Emprestimo(null, cli2, liv1, Status.ATRASADO);
+        Emprestimo emp3 = new Emprestimo(null, cli3, liv2, Status.EMPRESTADO);
+        Emprestimo emp4 = new Emprestimo(null, cli4, liv2, Status.DEVOLVIDO);
+        Emprestimo emp5 = new Emprestimo(null, cli2, liv2, Status.ATRASADO);
+        Emprestimo emp6 = new Emprestimo(null, cli3, liv1, Status.DEVOLVIDO);
 
         usuarioRepository.saveAll(Arrays.asList(user1,user2,user3,user4,user5,user6,user7,user8));
-        clienteRepository.saveAll(Arrays.asList(cli1,cli2));
+        clienteRepository.saveAll(Arrays.asList(cli1,cli2,cli3,cli4));
         livroRepository.saveAll(Arrays.asList(liv1,liv2));
-        emprestimoRepository.saveAll(Arrays.asList(emp1,emp2));
+        emprestimoRepository.saveAll(Arrays.asList(emp1,emp2,emp3,emp4,emp5,emp6));
     }
 }
