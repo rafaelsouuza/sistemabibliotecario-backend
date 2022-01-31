@@ -53,10 +53,10 @@ public class DBService {
         Cliente cli4 = new Cliente(null, "Edvan", "edvanl@email.com", "61954669533", "058.774.770-64", "Quadra 40 Casa 03", "Itapoã");
 
         Livro liv1 = new Livro(null, "Harry Potter", "978 – 85 – 333 – 0227 – 3", "J. K. Rowling", "hboMax",
-                "Livro do Harry", LocalDate.of(2005, 05, 12));
+                "Livro do Harry", "2003");
 
         Livro liv2 = new Livro(null, "Harry Potter 2", "978 – 85 – 443 – 0227 – 3", "J. K. Rowling", "hboMax",
-                "Livro do Harry é a camera secreta", LocalDate.of(2007, 03, 26));
+                "Livro do Harry é a camera secreta", "2007");
 
         Emprestimo emp1 = new Emprestimo(null,  cli1, liv1, Status.EMPRESTADO);
         Emprestimo emp2 = new Emprestimo(null, cli2, liv1, Status.ATRASADO);

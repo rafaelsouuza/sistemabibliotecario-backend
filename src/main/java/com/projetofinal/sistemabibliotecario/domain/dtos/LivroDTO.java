@@ -2,11 +2,9 @@ package com.projetofinal.sistemabibliotecario.domain.dtos;
 
 import com.fasterxml.jackson.annotation.JsonFormat;
 import com.projetofinal.sistemabibliotecario.domain.Livro;
-import org.springframework.format.annotation.DateTimeFormat;
 
 import javax.validation.constraints.NotNull;
 import java.io.Serializable;
-import java.time.LocalDate;
 import java.time.LocalDateTime;
 
 public class LivroDTO implements Serializable {
@@ -28,9 +26,8 @@ public class LivroDTO implements Serializable {
 
     private String assunto;
 
-    @DateTimeFormat(iso = DateTimeFormat.ISO.DATE_TIME)
-    @JsonFormat(pattern = "dd/MM/yyyy")
-    private LocalDate anoLancamento;
+    @NotNull(message = "O campo ANO LANÇAMENTO é requerido")
+    private String anoLancamento;
 
     @JsonFormat(pattern = "dd/MM/yyyy")
     private LocalDateTime dataCadastro = LocalDateTime.now();
@@ -90,11 +87,11 @@ public class LivroDTO implements Serializable {
         this.assunto = assunto;
     }
 
-    public LocalDate getAnoLancamento() {
+    public String getAnoLancamento() {
         return anoLancamento;
     }
 
-    public void setAnoLancamento(LocalDate anoLancamento) {
+    public void setAnoLancamento(String anoLancamento) {
         this.anoLancamento = anoLancamento;
     }
 

@@ -2,14 +2,12 @@ package com.projetofinal.sistemabibliotecario.domain;
 
 import com.fasterxml.jackson.annotation.JsonFormat;
 import com.projetofinal.sistemabibliotecario.domain.dtos.LivroDTO;
-import org.springframework.format.annotation.DateTimeFormat;
 
 import javax.persistence.Entity;
 import javax.persistence.GeneratedValue;
 import javax.persistence.GenerationType;
 import javax.persistence.Id;
 import java.io.Serializable;
-import java.time.LocalDate;
 import java.time.LocalDateTime;
 import java.util.Objects;
 
@@ -25,10 +23,7 @@ public class Livro implements Serializable {
     private String autor;
     private String editora;
     private String assunto;
-
-    @DateTimeFormat(iso = DateTimeFormat.ISO.DATE_TIME)
-    @JsonFormat(pattern = "dd/MM/yyyy")
-    private LocalDate anoLancamento;
+    private String anoLancamento;
 
     @JsonFormat(pattern = "dd/MM/yyyy")
     private LocalDateTime dataCadastro = LocalDateTime.now();
@@ -37,7 +32,7 @@ public class Livro implements Serializable {
         super();
     }
 
-    public Livro(Integer id, String titulo, String isbn, String autor, String editora, String assunto, LocalDate anoLancamento
+    public Livro(Integer id, String titulo, String isbn, String autor, String editora, String assunto, String anoLancamento
                  ) {
         this.id = id;
         this.titulo = titulo;
@@ -107,11 +102,11 @@ public class Livro implements Serializable {
         this.assunto = assunto;
     }
 
-    public LocalDate getAnoLancamento() {
+    public String getAnoLancamento() {
         return anoLancamento;
     }
 
-    public void setAnoLancamento(LocalDate anoLancamento) {
+    public void setAnoLancamento(String anoLancamento) {
         this.anoLancamento = anoLancamento;
     }
 
