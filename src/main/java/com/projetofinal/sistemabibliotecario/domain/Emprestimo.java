@@ -19,7 +19,7 @@ public class Emprestimo implements Serializable {
     private LocalDate dataEmprestimo = LocalDate.now();
 
     @JsonFormat(pattern = "dd/MM/yyyy")
-    private LocalDate dataDevolucao = dataEmprestimo.plusDays(30);
+    private LocalDate dataDevolucao = dataEmprestimo.plusDays(7);
 
     private Status status;
 

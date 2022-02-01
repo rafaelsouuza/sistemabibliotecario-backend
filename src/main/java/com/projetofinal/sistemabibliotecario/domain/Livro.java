@@ -1,6 +1,5 @@
 package com.projetofinal.sistemabibliotecario.domain;
 
-import com.fasterxml.jackson.annotation.JsonFormat;
 import com.projetofinal.sistemabibliotecario.domain.dtos.LivroDTO;
 
 import javax.persistence.Entity;
@@ -8,7 +7,6 @@ import javax.persistence.GeneratedValue;
 import javax.persistence.GenerationType;
 import javax.persistence.Id;
 import java.io.Serializable;
-import java.time.LocalDateTime;
 import java.util.Objects;
 
 @Entity
@@ -24,9 +22,6 @@ public class Livro implements Serializable {
     private String editora;
     private String assunto;
     private String anoLancamento;
-
-    @JsonFormat(pattern = "dd/MM/yyyy")
-    private LocalDateTime dataCadastro = LocalDateTime.now();
 
     public Livro() {
         super();
@@ -51,7 +46,6 @@ public class Livro implements Serializable {
         this.editora = obj.getEditora();
         this.assunto = obj.getAssunto();
         this.anoLancamento = obj.getAnoLancamento();
-        this.dataCadastro = obj.getDataCadastro();
     }
 
     public Integer getId() {
@@ -108,14 +102,6 @@ public class Livro implements Serializable {
 
     public void setAnoLancamento(String anoLancamento) {
         this.anoLancamento = anoLancamento;
-    }
-
-    public LocalDateTime getDataCadastro() {
-        return dataCadastro;
-    }
-
-    public void setDataCadastro(LocalDateTime dataCadastro) {
-        this.dataCadastro = dataCadastro;
     }
 
     @Override

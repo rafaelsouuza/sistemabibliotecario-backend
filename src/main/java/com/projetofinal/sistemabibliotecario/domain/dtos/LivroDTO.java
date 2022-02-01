@@ -1,11 +1,9 @@
 package com.projetofinal.sistemabibliotecario.domain.dtos;
 
-import com.fasterxml.jackson.annotation.JsonFormat;
 import com.projetofinal.sistemabibliotecario.domain.Livro;
 
 import javax.validation.constraints.NotNull;
 import java.io.Serializable;
-import java.time.LocalDateTime;
 
 public class LivroDTO implements Serializable {
     private static final long serialVersionUID = 1L;
@@ -29,9 +27,6 @@ public class LivroDTO implements Serializable {
     @NotNull(message = "O campo ANO LANÇAMENTO é requerido")
     private String anoLancamento;
 
-    @JsonFormat(pattern = "dd/MM/yyyy")
-    private LocalDateTime dataCadastro = LocalDateTime.now();
-
     public LivroDTO() {
         super();
     }
@@ -44,7 +39,6 @@ public class LivroDTO implements Serializable {
         this.assunto = obj.getAssunto();
         this.anoLancamento = obj.getAnoLancamento();
         this.isbn = obj.getIsbn();
-        this.dataCadastro = obj.getDataCadastro();
     }
 
     public Integer getId() {
@@ -101,14 +95,6 @@ public class LivroDTO implements Serializable {
 
     public void setIsbn(String isbn) {
         this.isbn = isbn;
-    }
-
-    public LocalDateTime getDataCadastro() {
-        return dataCadastro;
-    }
-
-    public void setDataCadastro(LocalDateTime dataCadastro) {
-        this.dataCadastro = dataCadastro;
     }
 
 }
